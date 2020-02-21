@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   headerColor = '#0080ff';
+  @Output() featureSelect = new EventEmitter<string>();
 
   getHeaderColor(){
     return this.headerColor;
   }
+  onSelect(feature : string){
+    this.featureSelect.emit(feature);
+  }
+  
   constructor() { }
 
   ngOnInit() {

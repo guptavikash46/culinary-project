@@ -1,3 +1,4 @@
+<hr>
 <div class="row">
     <div class="col-xs-12">
         <button class="btn btn-success">New Recipe</button>
@@ -6,15 +7,7 @@
 <hr>
 <div class="row">
     <div class="col-xs-12">
-        <a href="#" class="list-group-item clearfix" *ngFor="let recipe of recipes" [ngStyle]="{'background-color': '#e0ebeb'}">
-            <div class="float-left">
-                <h4 class="list-group-item-heading">{{recipe.name}}</h4>
-                <p class="list-group-item-text">{{recipe.desc}}</p>
-            </div>
-            <span class="float-right">
-                <img [src]="recipe.imageUrl" alt="{{recipe.name}}" class="img-responsive" style="max-height: 100px;">
-            </span>
-        </a>
-        <app-recipe-item></app-recipe-item>
+        <app-recipe-item *ngFor="let recipeEl of recipes" [recipes] = "recipeEl" 
+        (click)="onRecipeItemSelected(recipeEl)"></app-recipe-item>
     </div>
 </div>
