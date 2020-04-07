@@ -1,23 +1,25 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Recipe} from '/home/vikas/Angular/culinery-project/src/app/Models/recipe.model';
+import { Recipe} from 'src/app/Models/recipe.model';
+import { RecipesService } from 'src/app/services/recipes.service';
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
-  @Output() recipes: Recipe[] = [new Recipe('recipe1', "This is simply a test-description", "https://get.pxhere.com/photo/dish-meal-food-recipe-breakfast-fast-food-squid-lunch-cuisine-delicious-rice-thailand-shrimp-asian-food-vegetarian-food-foodstuff-thailand-food-thai-food-side-dish-the-pork-fried-rice-made-southeast-asian-food-steamed-rice-stir-fried-seafood-a-fried-egg-plate-lunch-1377212.jpg")
-                    , new Recipe('recipe2', "This is simply a test-description", "https://get.pxhere.com/photo/dish-meal-food-recipe-breakfast-fast-food-squid-lunch-cuisine-delicious-rice-thailand-shrimp-asian-food-vegetarian-food-foodstuff-thailand-food-thai-food-side-dish-the-pork-fried-rice-made-southeast-asian-food-steamed-rice-stir-fried-seafood-a-fried-egg-plate-lunch-1377212.jpg")];
+  recipes: Recipe[];
   
-  @Output() listItemClick = new EventEmitter<Recipe>();
-  constructor() { }
+  @Output() listItemClick = new EventEmitter<string>();
+
+  constructor(private recipeService: RecipesService) { }
 
   ngOnInit() {
+    this.recipes = this.recipeService.getRecipes();
   }
   
   onRecipeItemSelected(recipeData: Recipe){
-    this.listItemClick.emit(recipeData);
-
+    //console.log("the data: "+ this.recipeService.recipeItem(recipeData).name);
+    this.listItemClick.emit(recipeData.name);
   }
   
 }
