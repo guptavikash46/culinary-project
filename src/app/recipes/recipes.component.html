@@ -3,10 +3,9 @@
         <app-recipe-list (listItemClick)="selectedRecipe = $event"></app-recipe-list>
     </div>
     <div class="col-md-7">
-        <app-recipe-detail *ngIf="selectedRecipe; else infoText"
-            [recipeVal] = "selectedRecipe"></app-recipe-detail>
+        <router-outlet></router-outlet>
     </div>
-    <ng-template #infoText>
+    <!-- <ng-template #infoText>
         <p>Please select a recipe on the left</p>
-    </ng-template>
+    </ng-template> -->
 </div>

@@ -1,21 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-light" [ngStyle]="{backgroundColor: getHeaderColor()}">
     <div class="container-fluid" >
         <div class="navbar-header">
-            <a href="#" class="navbar-brand" [ngStyle]= "{ color: 'white'}">RECIPE BOOK</a>
+            <a class="navbar-brand" [ngStyle]= "{ color: 'white'}" 
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/']" >RECIPE BOOK</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a href="#" (click)="onSelect('recipe')" class="nav-link">Recipes</a></li>
-                <li class="nav-item"><a href="#" (click)="onSelect('shopping-list')" class="nav-link">Shopping list</a></li>
+                <li class="nav-item"><a class="nav-link" 
+                    routerLinkActive="active" [routerLink]="['recipes']">Recipes</a></li>
+                <li class="nav-item"><a class="nav-link" 
+                    routerLinkActive="active" [routerLink]="['shopping-list']">Shopping list</a></li>
             </ul>
 
             <div class="dropdown btn-group">
                 <button class="btn btn-primary dropdown-toggle">Manage Recipe
                 </button>
                 <div class="dropdown-menu dropdown-content" >
-                    <a href = "#" class="dropdown-item">Action</a>
-                    <a href = "#" class="dropdown-item">Another action</a>
-                    <a href = "#" class="dropdown-item">Something else</a>
+                    <a href = "#" class="dropdown-item">Save data</a>
+                    <a href = "#" class="dropdown-item">Fetch data</a>
                 </div>
             </div>
 

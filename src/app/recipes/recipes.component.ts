@@ -8,8 +8,8 @@ import { RecipesService } from '../services/recipes.service';
     providers: [RecipesService]    
 })
 export class Recipes implements OnInit{
-    //selectedRecipe: string;
-    constructor(){
+
+    constructor(private recipeService: RecipesService){
     }
 
     ngOnInit(){

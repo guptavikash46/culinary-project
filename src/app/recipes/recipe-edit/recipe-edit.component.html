@@ -1,0 +1,63 @@
+<form class="mt-3" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-success mr-2" type="submit">Save</button>
+            <button class="btn btn-danger" type="button">Cancel</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text"
+                id="name"
+                formControlName="name"
+                class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="imagePath">Image URL</label>
+                <input type="text"
+                id="imagePath"
+                formControlName="imageUrl"
+                class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="imagePreview">Image preview</label>
+                <img [src]="imgUrl" id="imagePreview"  height="60px" class="img-responsive">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="desc">Recipe Description</label>
+                <textarea class="form-control" id="desc" 
+                rows="3"
+                formControlName="description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-8">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col sm-2">
+                    <input type="number" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-danger" type="button">X</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

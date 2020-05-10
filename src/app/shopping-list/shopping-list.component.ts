@@ -1,16 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Ingredients } from '../Models/ingredients.model';
 import { ShoppingListService } from '../services/shopping-list.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
-export class ShoppingListComponent implements OnInit {
-  //@Output() shoppingListNav = new EventEmitter<any>();
+export class ShoppingListComponent implements OnInit, OnDestroy {
   ingrObj: Ingredients[];
-  
+  subscription: Subscription;
+  subscriptionUpdatedIngr: Subscription;
+  subscriptionDeletedIngr: Subscription;
   constructor(private shoppingList: ShoppingListService){}
 
   // ingrItemDelete(delIngr: Ingredients){
@@ -23,14 +25,24 @@ export class ShoppingListComponent implements OnInit {
       //delete this.ingredients[0];
   //   }
   // }
-
+  itemValue = '';
   ngOnInit() {
     this.ingrObj = this.shoppingList.getAllIngredients();
-    this.shoppingList.itemAddNotified
+    this.subscription = this.shoppingList.itemAddNotified
       .subscribe((ing: Ingredients) => this.ingrObj.push(ing));
+
+    this.subscriptionUpdatedIngr = this.shoppingList.getUpdatedIngredients.subscribe(
+      (ingrs: Ingredients[]) => {
+        this.ingrObj = ingrs;
+      }
+    );
   }
-  // ngOnChanges(){
-  //   this.ingrObj = this.shoppingList.getAllIngredients();
-  // }
+  onShoppingIngrItemSelected(ing: Ingredients){
+    this.shoppingList.itemSelected.next(ing);
+  }
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+    this.subscriptionUpdatedIngr.unsubscribe();
+  }
 
 }

@@ -13,9 +13,9 @@
         <div class="dropdown btn-group">
             <button class="btn btn-primary dropdown-toggle">Manage Recipe
             </button>
-            <div class="dropdown-menu dropdown-content">
-                <a class="dropdown-item" style="cursor: pointer;" (click)="onAddToShoppingList()">To shopping list</a>
-                <a href="#" class="dropdown-item">Edit recipe</a>
+            <div class="dropdown-menu dropdown-content" style="cursor: pointer;" >
+                <a class="dropdown-item" (click)="onAddToShoppingList()">To shopping list</a>
+                <a class="dropdown-item" (click)="onEditRecipe()">Edit recipe</a>
                 <a href="#" class="dropdown-item">Delete recipe</a>
             </div>
         </div>
@@ -35,4 +35,7 @@
             </li>
         </ul>
     </div>
+</div>
+<div class="row m-3">
+    <router-outlet></router-outlet>
 </div>

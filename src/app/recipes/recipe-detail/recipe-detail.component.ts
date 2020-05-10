@@ -1,24 +1,42 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { Recipe } from 'src/app/Models/recipe.model';
 import { RecipesService } from 'src/app/services/recipes.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
 })
-export class RecipeDetailComponent implements OnInit, OnChanges {
-  @Input() recipeVal : string;
+export class RecipeDetailComponent implements OnInit, OnChanges, OnDestroy {
+  recipeId : number;
   recipeDetails: Recipe;
-  constructor(private recipeService: RecipesService) { }
+  queryParams: Subscription;
+
+  constructor(private recipeService: RecipesService,
+      private activatedRoute: ActivatedRoute, private route: Router) { }
 
   ngOnInit() {
+    this.queryParams = this.activatedRoute.params.subscribe(
+      (params: Params) => {
+        this.recipeId = +params['id'];
+        this.recipeService.setRecipeId(+params['id']);
+        this.recipeDetails = this.recipeService.recipeItem(this.recipeId);
+      }
+    );
   }
   ngOnChanges(){
-    this.recipeDetails = this.recipeService.recipeItem(this.recipeVal);
   }
+
   onAddToShoppingList(){
     this.recipeService.addIngrToShoppingList(this.recipeDetails.ingredients);
     alert("Ingrdients added to shopping list.");
+  }
+  onEditRecipe(){
+    this.route.navigate(['edit'], {relativeTo: this.activatedRoute});
+  }
+  ngOnDestroy(){
+    this.queryParams.unsubscribe();
   }
 }

@@ -1,4 +1,5 @@
-<a href="#" class="list-group-item clearfix" [ngStyle]="{'background-color': '#e0ebeb'}">
+<a class="list-group-item clearfix" routerLinkActive="active"
+    [routerLink]="[recipes.id]">
     <div class="float-left">
         <h4 class="list-group-item-heading">{{recipes.name}}</h4>
         <p class="list-group-item-text">{{recipes.desc}}</p>

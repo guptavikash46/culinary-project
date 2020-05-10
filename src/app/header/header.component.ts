@@ -12,9 +12,9 @@ export class HeaderComponent implements OnInit {
   getHeaderColor(){
     return this.headerColor;
   }
-  onSelect(feature : string){
-    this.featureSelect.emit(feature);
-  }
+  // onSelect(feature : string){
+  //   this.featureSelect.emit(feature);
+  // }
   
   constructor() { }
 
