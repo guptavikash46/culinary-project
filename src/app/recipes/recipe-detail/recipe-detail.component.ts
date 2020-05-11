@@ -13,7 +13,7 @@ export class RecipeDetailComponent implements OnInit, OnChanges, OnDestroy {
   recipeId : number;
   recipeDetails: Recipe;
   queryParams: Subscription;
-
+  editMode: boolean;
   constructor(private recipeService: RecipesService,
       private activatedRoute: ActivatedRoute, private route: Router) { }
 
@@ -25,6 +25,7 @@ export class RecipeDetailComponent implements OnInit, OnChanges, OnDestroy {
         this.recipeDetails = this.recipeService.recipeItem(this.recipeId);
       }
     );
+    this.recipeId != null ? this.editMode = true : false;
   }
   ngOnChanges(){
   }
@@ -36,7 +37,12 @@ export class RecipeDetailComponent implements OnInit, OnChanges, OnDestroy {
   onEditRecipe(){
     this.route.navigate(['edit'], {relativeTo: this.activatedRoute});
   }
+  onDeleteRecipe(){
+      this.recipeService.deleteRecipe(this.recipeId - 1);
+      this.route.navigate(['../'], {relativeTo: this.activatedRoute});
+  }
   ngOnDestroy(){
     this.queryParams.unsubscribe();
   }
+ 
 }
