@@ -5,7 +5,7 @@ export class Recipe{
     name: string;
     desc: string;
     imageUrl: string;
-    ingredients: Ingredients[];
+    ingredients: Ingredients[]; 
 
     constructor(recipeId: number, name: string, desc: string, imagePath: string, ingr: Ingredients[]){
         this.id = recipeId;

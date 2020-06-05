@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { Recipe } from 'src/app/Models/recipe.model';
@@ -11,15 +11,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class RecipeEditComponent implements OnInit {
   id: number;
-  editMode = false;
+  editMode: boolean;
   recipeForm: FormGroup;
   imgUrl = '';
   initId = 0;
   constructor(private recipeService: RecipesService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.editMode = false;
     this.id = this.recipeService.getRecipeId();
-    if(this.recipeService.getRecipeId() != null) {
+    console.log("from recipe edit: "+this.id);
+    if(this.id != null) {
       this.editMode = true;
     }
     this.initForm();

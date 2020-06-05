@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, OnInit } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,9 @@ import { ShoppingListService } from './services/shopping-list.service';
 import { HomeComponent } from './home/home/home.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipesService } from './services/recipes.service';
+import { RequestInterceptor } from './http/intercept-req.service';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingComponent } from './shared/loading-component/loading.component';
 
 @NgModule({
   declarations: [
@@ -30,15 +34,20 @@ import { RecipesService } from './services/recipes.service';
     DropdownDirective,
     HomeComponent,
     RecipeEditComponent,
+    AuthComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    
   ],
-  providers: [ShoppingListService, RecipesService],
+  providers: [ShoppingListService, RecipesService, {provide: HTTP_INTERCEPTORS, 
+    useClass: RequestInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule implements OnInit { 

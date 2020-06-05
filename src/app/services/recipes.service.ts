@@ -12,6 +12,7 @@ export class RecipesService
   ingredientsElements: Ingredients[];
   recipeId: number;
   recipeUpdateNotify = new Subject<Recipe[]>();
+  recipeItemUpdate = new Subject<Recipe>();
   private recipes: Recipe[] = 
   [new Recipe(1, 'Masala dosa', "Rice made pancake stuffed with mashed potatoes.", 
         "https://img.favpng.com/5/4/8/masala-dosa-indian-cuisine-sambar-vegetarian-cuisine-png-favpng-D3X7jLL8mMiTRFvimW4qjsWyq.jpg",
@@ -30,13 +31,18 @@ export class RecipesService
   }
   recipeItemDetail = new EventEmitter<Recipe>();
   
+  setRecipes(recipes: Recipe[]){
+    this.recipes = recipes;
+    this.recipeUpdateNotify.next(recipes);
+  }
   getRecipes(){
     return this.recipes.slice();
   }
   recipeItem(rec: number){
     for(let i = 0; i < this.recipes.length; i++){
-      if(this.recipes[i].id == rec) return this.recipes[i];
+      if(this.recipes[i].id === rec) return this.recipes[i];
     }
+    return null;
   }
   setRecipeId(id: number){
     this.recipeId = id;
@@ -54,13 +60,25 @@ export class RecipesService
     this.recipes.push(rec);
     this.recipeUpdateNotify.next(this.getRecipes());
   }
-  updateRecipe(index: number, rec: Recipe){
-    index -= 1;
-    this.recipes[index] = rec;
-    this.recipeUpdateNotify.next(this.getRecipes());
+  updateRecipe(recID: number, rec: Recipe){
+    for(let i = 0; i < this.recipes.length; i++){
+      if(this.recipes[i].id === recID){
+        this.recipes[i] = rec;
+        this.recipeUpdateNotify.next(this.getRecipes());
+        this.recipeItemUpdate.next(rec);
+        return true;
+      }
+    }
+    return false;
   }
-  deleteRecipe(index: number){
-    this.recipes.splice(index, 1);
-    this.recipeUpdateNotify.next(this.getRecipes());
+  deleteRecipe(recID: number){
+    for(let i = 0; i < this.recipes.length; i++){
+      if(this.recipes[i].id === recID){
+        this.recipes.splice(i, 1);
+        this.recipeUpdateNotify.next(this.getRecipes());
+        return true;
+      }
+    }
+    return false;
   }
 }
